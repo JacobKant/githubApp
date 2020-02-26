@@ -1,6 +1,6 @@
-package ru.jacobkant.githubapp.data
+package ru.jacobkant.githubapp.domain
 
-data class MyVkUser(
+data class MyProfileInfo(
     val photoUrl: String,
     val firstName: String,
     val lastName: String,

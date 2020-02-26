@@ -1,54 +1,42 @@
 package ru.jacobkant.githubapp.di
 
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
-import dagger.MapKey
 import dagger.Module
 import dagger.multibindings.IntoMap
-import ru.jacobkant.githubapp.ui.main.MainViewModel
-import javax.inject.Inject
-import javax.inject.Provider
-import kotlin.reflect.KClass
+import ru.jacobkant.githubapp.ui.main.MenuFragmentContainerViewModel
+import ru.jacobkant.githubapp.ui.login.LoginViewModel
+import ru.jacobkant.githubapp.ui.main.MainActivityViewModel
+import ru.jacobkant.githubapp.ui.main.users.UsersViewModel
+import javax.inject.Singleton
 
 @Module
 abstract class ViewModelModule {
 
     @IntoMap
     @Binds
-    @ViewModelKey(MainViewModel::class)
-    abstract fun bindMainViewModel(vm: MainViewModel): ViewModel
+    @ViewModelKey(LoginViewModel::class)
+    abstract fun bindMainViewModel(vm: LoginViewModel): ViewModel
+
+    @IntoMap
+    @Binds
+    @ViewModelKey(UsersViewModel::class)
+    abstract fun bindUsersViewModel(factory: UsersViewModel): ViewModel
+
+    @IntoMap
+    @Binds
+    @ViewModelKey(MenuFragmentContainerViewModel::class)
+    abstract fun bindMenuFragmentContainerViewModel(vm: MenuFragmentContainerViewModel): ViewModel
+
+    @IntoMap
+    @Binds
+    @ViewModelKey(MainActivityViewModel::class)
+    abstract fun bindMainActivityViewModel(vm: MainActivityViewModel): ViewModel
+
 
     @Binds
+    @Singleton
     abstract fun viewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
-}
-
-class ViewModelFactory @Inject constructor(
-    private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
-) : ViewModelProvider.Factory {
-
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(modelClass: Class<T>): T =
-        (creators[modelClass]?.get() as? T)
-            ?: throw IllegalArgumentException("Unknown model class $modelClass")
-
-}
-
-
-@Target(
-    AnnotationTarget.FUNCTION,
-    AnnotationTarget.PROPERTY_GETTER,
-    AnnotationTarget.PROPERTY_SETTER
-)
-@MapKey
-annotation class ViewModelKey(val value: KClass<out ViewModel>)
-
-interface ComponentWithViewModels {
-    fun viewModelFactory(): ViewModelProvider.Factory
-}
-
-inline fun <reified VM : ViewModel> Fragment.getViewModel(component: ComponentWithViewModels) = lazy {
-    ViewModelProvider(this, component.viewModelFactory()).get(VM::class.java)
 }

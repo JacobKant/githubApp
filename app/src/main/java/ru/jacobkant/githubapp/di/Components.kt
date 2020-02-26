@@ -1,3 +1,3 @@
 package ru.jacobkant.githubapp.di
 
-class Components(val appComponent: AppComponent)
+class Components(var appComponent: AppComponent)

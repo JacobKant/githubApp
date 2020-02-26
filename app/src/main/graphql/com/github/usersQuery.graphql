@@ -1,0 +1,16 @@
+query usersQuery($query: String!, $firstCount: Int!, $afterCursor: String) {
+  search(type: USER, query: $query, first: $firstCount, after: $afterCursor) {
+    userCount
+    edges {
+      cursor
+      node {
+        ... on User {
+          id
+          avatarUrl,
+          email,
+          name
+        }
+      }
+    }
+  }
+}

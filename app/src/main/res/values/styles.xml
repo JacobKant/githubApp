@@ -1,9 +1,17 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">#5D4037</item>
+        <item name="colorPrimarySurface">#D7CCC8</item>
+        <item name="colorPrimary">#795548</item>
+        <item name="android:textColor">#212121</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:textColorSecondary">#757575</item>
+        <item name="colorAccent">#607D8B</item>
+        <item name="bottomAppBarStyle">@style/AppTheme.BottomAppBar</item>
+    </style>
+
+    <style name="AppTheme.BottomAppBar" parent="Widget.MaterialComponents.BottomAppBar">
     </style>
 
 </resources>

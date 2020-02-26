@@ -1,8 +1,10 @@
 package ru.jacobkant.githubapp.domain
 
 import io.reactivex.Single
-import ru.jacobkant.githubapp.data.MyVkUser
 
 interface AuthRepository {
-    fun getCurrentUser(): Single<MyVkUser>
+    fun getCurrentUser(): Single<MyProfileInfo>
+    fun setVkToken(token: String)
+    fun isLoggedIn(): Boolean
+    fun logOut()
 }
